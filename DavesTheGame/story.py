@@ -1,36 +1,5 @@
-import colorama
-import survey
-
-
-class Choice:
-
-    def __init__(self, text: str, result):
-        self.text = text
-        self.result = result
-
-    def __str__(self):
-        return self.text
-
-class Situation:
-
-    def __init__(self, text: str, game_won=False, game_over=False):
-        self.text = text
-        self.choices = []
-        self.game_won = game_won
-        self.game_over = game_over
-
-    def add_choice(self, choice):
-        self.choices.append(choice)
-
-    def __str__(self):
-        return self.text
-
-    @staticmethod
-    def advance(situation):
-        return situation.choices[survey.routines.select("What will you do: ", options = [str(choice) for choice in situation.choices])].result
-
-game_won: bool = False
-game_over: bool = False
+from choice import Choice
+from situation import Situation
 
 office = Situation("""
 As you awake from troubled dreams, you find yourself in a small, brightly lit
@@ -281,19 +250,3 @@ run_inside.add_choice(Choice("Slip into the bathroom to avoid Sr. Basahat", bath
 run_to_student_hub.add_choice(Choice("Apologize", apologize))
 run_to_student_hub.add_choice(Choice("Stand your ground", argue))
 run_to_student_hub.add_choice(Choice("Bribe her with a chicken tender", bribe))
-
-
-current_situation = office
-print(current_situation)
-
-while not game_won and not game_over:
-    current_situation = Situation.advance(current_situation)
-    print(current_situation)
-    game_won = current_situation.game_won
-    game_over = current_situation.game_over
-
-if game_won:
-    print(colorama.Back.GREEN + colorama.Fore.WHITE + "YOU WIN!" + colorama.Style.RESET_ALL)
-
-if game_over:
-    print(colorama.Back.RED + colorama.Fore.WHITE + "GAME OVER" + colorama.Style.RESET_ALL)
