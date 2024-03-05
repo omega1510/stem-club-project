@@ -1,3 +1,6 @@
+"""The story for the game.
+"""
+
 from choice import Choice
 from situation import Situation
 
