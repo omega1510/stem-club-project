@@ -79,4 +79,5 @@ def game_loop():
         game_over()
 
 if __name__=="__main__":
+    clear()
     game_loop()
